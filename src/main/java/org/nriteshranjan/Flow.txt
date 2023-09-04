@@ -1,0 +1,55 @@
+Use Case Statement:
+1. A <vehicle> enters a <building> having multiple <floors>
+2. At the <entrance>, the <vehicle (+ driver)> <asks for> empty <parking lot> suitable for his <need>
+3. It is <given> an empty <parking lot> if available based on the <type of vehicle>
+4. <Vehicle owner> <parks> it's <vehicle> in that <lot> and that <lot> is <marked as> reserved and <start time> for that <lot> is <updated>
+5. When the <vehicle owner> wants to <leave>, he <removes> his vehicle from that <lot> and <end time> for that <lot> is <updated>
+6. <Vehicle owner> <pays> the <price> (using a <Payment method>) for that <lot> (which may be variable - <floor> and <type> and <time taken>) at exit
+7. Post that <lot> is <marked as> free
+
+NVT technique: (Noun <-> Object (Classes)
+1. Vehicle
+2. Building
+3. Floor
+4. ParkingLot
+5. Price
+6. PaymentMethod
+
+Other Nouns that might not be used in creation of classes at current point:
+Driver
+Entrance
+Exit
+
+NVT technique: (Verb <-> Action/ Methods)
+
+Class diagram
+Always remember:
+field = State, method = actions performed by actors
+(Domain should contain business logic)
+(Service class should be created if multiple entities are in question and if required)
+
+POINTS TO NOTE
+The decision between passing the actual object or an identifier member variable is not about one being universally "better" or "mostly used." It depends on the context of your application, its requirements, and the trade-offs you're willing to make. Different scenarios and design patterns can influence the choice. Let's discuss some common use cases and patterns:
+
+1. Domain-Driven Design (DDD):
+In Domain-Driven Design, passing the actual object is often favored. DDD emphasizes creating rich domain models that encapsulate behavior along with data. Passing objects helps to maintain the richness of the domain model and supports the behavior-driven development approach.
+
+2. High-Level Business Logic:
+For high-level business logic, passing actual objects can lead to more readable and expressive code. When the relationships between objects are central to the application's functionality, working directly with objects can make the code easier to understand.
+
+3. Performance and Memory Efficiency:
+If memory usage and performance are critical concerns, passing identifier member variables might be preferred. This is common in situations where you're dealing with large datasets or systems with limited resources.
+
+4. Data Serialization and Persistence:
+When dealing with serialization (e.g., sending data over a network) or persistence (e.g., storing data in a database), passing identifiers can help manage data consistency and provide a clear separation between the application's logic and its data storage.
+
+5. Data Transfer Objects (DTOs):
+In some architectures, such as microservices or APIs, passing DTOs (which might contain only relevant data) can be more efficient than passing entire objects.
+
+6. Scalability and Distributed Systems:
+In distributed systems or architectures where components run independently, passing identifiers can reduce coupling and enable each component to independently fetch the full object when needed.
+
+7. Hybrid Approach:
+In practice, many applications use a hybrid approach. They pass identifiers when efficiency matters and switch to passing objects when the application logic requires working with the complete domain model.
+
+In summary, both approaches have their merits and are used based on the specific context and requirements of the application. The key is to understand your application's needs, consider factors such as performance, maintainability, and readability, and make an informed decision that aligns with your application's architecture and goals.
