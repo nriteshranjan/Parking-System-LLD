@@ -9,7 +9,8 @@ public class PaymentService {
         this.retryCount = retryCount;
     }
 
-    public boolean startSessionAndMakePayment(String paymentMode, ClientDetails clientDetails, float amountToPay) {
+
+    public boolean startSessionAndMakePayment(ClientDetails clientDetails, float amountToPay) {
         if (retryCount <= 0) {
             return false; // Maximum retry attempts reached
         }
@@ -18,7 +19,7 @@ public class PaymentService {
         PaymentSession session = new PaymentSession(clientDetails, amountToPay);
 
         // Select the payment mode and get its details
-        PaymentMode paymentModeDetails = session.selectPaymentModeAndGetDetails(paymentMode);
+        PaymentMode paymentModeDetails = session.selectPaymentModeAndGetDetails();
 
         if (paymentModeDetails == null) {
             return false; // Handle the case where a payment mode wasn't selected
@@ -29,7 +30,7 @@ public class PaymentService {
             return true; // Payment successful
         } else {
             retryCount--;
-            return startSessionAndMakePayment(paymentMode, clientDetails, amountToPay); // Retry with the same payment mode
+            return startSessionAndMakePayment(clientDetails, amountToPay); // Retry with the same payment mode
         }
     }
 }

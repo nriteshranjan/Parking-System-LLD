@@ -48,10 +48,25 @@ public class PaymentSession {
         this.clientDetails = clientDetails;
     }
 
-    public PaymentMode selectPaymentModeAndGetDetails(String paymentMode) {
+    private String getPaymentModeFromUser() {
+        // Create a scanner object to read input from the console
         Scanner scanner = new Scanner(System.in);
 
-        if (paymentMode.equals("card")) {
+        // Prompt the user to enter the payment mode
+        System.out.println("Please enter the payment mode:");
+
+        // Read the payment mode from the user
+        String paymentMode = scanner.nextLine();
+
+        return paymentMode;
+    }
+
+    public PaymentMode selectPaymentModeAndGetDetails() {
+        String paymentMode = getPaymentModeFromUser(); // Get new payment mode from user
+
+        Scanner scanner = new Scanner(System.in);
+
+        if ("card".equalsIgnoreCase(paymentMode)) {
             System.out.println("Select your card type: ");
             System.out.println("1. Credit Card");
             System.out.println("2. Debit Card");
@@ -78,7 +93,7 @@ public class PaymentSession {
             CardDetail cardDetail = new CardDetail(cardNumber, expiryDate, cvv);
 
             return new CardPayment(cardType, cardDetail);
-        } else if (paymentMode.equals("upi")) {
+        } else if ("upi".equalsIgnoreCase(paymentMode)) {
             System.out.println("Enter your UPI ID: ");
             String upiId = scanner.nextLine();
             return new UPI(upiId);

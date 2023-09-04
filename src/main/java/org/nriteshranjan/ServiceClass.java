@@ -78,7 +78,7 @@ public class ServiceClass {
             float amount = calculateAmount(parkingLotImpl.getStartTime(), parkingLotImpl.getEndTime(), parkingLotImpl.getPrice());
 
             // Step 3: Make payment
-            boolean paymentSuccessful = makePayment(amount, clientDetails, paymentMode);
+            boolean paymentSuccessful = makePayment(amount, clientDetails);
             if (paymentSuccessful) {
                 // Step 4: Unpark the vehicle from the parking lot
                 boolean result = parkingLotImpl.unparkVehicle(endTime);
@@ -103,16 +103,16 @@ public class ServiceClass {
         return (endTime - startTime) * price;
     }
 
-    public boolean makePayment(float amount, ClientDetails clientDetails, String paymentMode) {
+    public boolean makePayment(float amount, ClientDetails clientDetails) {
         // Check if payment details are captured and valid
-        if (clientDetails == null || paymentMode == null) {
+        if (clientDetails == null) {
             logger.warning("Payment failed due to invalid details.");
             return false;
         }
 
         // Implement payment logic, e.g., using a payment service
         PaymentService paymentService = new PaymentService(3);
-        paymentService.startSessionAndMakePayment(paymentMode, clientDetails, amount);
+        paymentService.startSessionAndMakePayment(clientDetails, amount);
 
         // Assuming the payment logic is successful
         return true;

@@ -107,12 +107,12 @@ class ParkingLotImpl implements IParkingLot {
             throw new Exception(DUE_NOT_CLEARED);
         }
 
-        if (getEndTime() != currentTime) {
-            setStartTime(getEndTime());
-            setEndTime(currentTime);
-            setPaid(false);
-            throw new Exception(DUE_NOT_CLEARED);
-        }
+//        if (getEndTime() != currentTime) {
+//            setStartTime(getEndTime());
+//            setEndTime(currentTime);
+//            setPaid(false);
+//            throw new Exception(DUE_NOT_CLEARED);
+//        }
 
         setReserved(false);
         setVehicle(null);
